@@ -37,27 +37,27 @@ public class shoppingBasket {
         product.forEach((key, value) -> System.out.println(key + " = " + "£" + value));
 
         do {
-            System.out.println("Your basket total is: " + totalAmount);
-            System.out.print("Please enter item you want to buy (Minimum of 4 items per shopping bag): ");
+            System.out.print("Please enter item you want to buy (Minimum of 4 items per shopping bag):");
             productName = input.nextLine().toLowerCase();
             if (product.containsKey(productName)) {
-                System.out.print("Please enter quantity: ");
+                System.out.print("Please enter quantity:");
                 quantity = input.nextInt();
                 totalAmount += (product.get(productName) * quantity);
                 numberOfProducts++;
             }
-            else if (productName.equals("exit") && numberOfProducts < 1 ) {//Ash
-                System.out.println("You cant exit with an empty basket. ");
+            else if (productName.equals("quit") && numberOfProducts < 1 ) {
+                System.out.println("Your basket is empty. Thanks for shopping with us");
+                break;
             }
-            else if (productName.equals("exit") ) {//Ash
-                System.out.print("Thank you. ");
+            else if (productName.equals("quit") ) {
+                System.out.println("Thanks for shopping with us. ");
                 break;
             }
             else {
                 System.out.println(String.format("'%s' not recognised as an item",productName));
             }
         }
-        while (numberOfProducts <= product.size());
+        while (true);
         String formattedAmount = NumberFormat.getCurrencyInstance().format(totalAmount);
         System.out.println("The total for your items is " + formattedAmount);
     }
