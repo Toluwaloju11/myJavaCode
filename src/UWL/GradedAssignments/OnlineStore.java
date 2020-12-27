@@ -10,9 +10,10 @@ Task      : Write a Java program to simulate an online store. The program should
             require of that product. The program should then allow the user to keep choosing more products and
             quantities until they enter something to indicate they want to end the program (e.g. a given number or ‘q’
             or ‘exit’). The program should then tell the user the total amount for the products they have selected.
+
 Method    : 1. I used HashMap to create a Key Value pair as (Key = itemName and Value = price) and then printed it out
-            2. Using the doWhile loop, I used the scanner object (NextLine) to get  input from the user and then checked to see if the input value with containsKey method.
-            3. Based on the input being in the HashMap, i used the If
+            2. Using the While loop, I used the scanner object (NextLine) to get  input from the user and then used the containsKey to see availability of stock.
+            3. I then used if else statements to validate items not recognised and also one for the quit message
 */
 package UWL.GradedAssignments;
 import java.text.NumberFormat;
@@ -24,12 +25,10 @@ public class OnlineStore {
     public static void main(String[] args) {
         var input = new Scanner(System.in);
         int numberOfProducts = 0;
-        int quantity = 0;
-        String productName = null;
         double totalAmount = 0;
         Map<String, Double> product = new HashMap<>();
-        product.put("cup", 2.21);
-        product.put("gin", 1.13);
+        product.put("jam", 2.21);
+        product.put("bread", 1.13);
         product.put("mug", 2.41);
         product.put("oil", 2.43);
         product.put("eggs", 2.43);
@@ -39,15 +38,17 @@ public class OnlineStore {
 
         while (true) {
             if(numberOfProducts < 1)
-                System.out.print("Please enter item you want to buy (Minimum of 4 items per shopping bag): ");
+                System.out.print("Please enter an item from the list above: ");
             else
-                System.out.print("Please select next item:");
-            productName = input.next().toLowerCase();
+                System.out.print("Please enter another item: or enter 'quit' to proceed to checkout: ");
+            String productName = input.next().toLowerCase();
             if(product.containsKey(productName) ){
-                System.out.print("Please enter quantity:");
-                quantity = input.nextInt();
+                System.out.print("Please enter quantity: ");
+                int quantity = input.nextInt();
                 totalAmount += (product.get(productName) * quantity);
                 numberOfProducts++;
+                String formattedAmount = NumberFormat.getCurrencyInstance().format(totalAmount);
+                System.out.println("Current shopping total is " + formattedAmount);
             }
             else if (productName.equals("quit") && numberOfProducts < 1) {
                 System.out.print("Your basket is empty. Thanks for shopping with us");
@@ -58,10 +59,10 @@ public class OnlineStore {
                 break;
             }
             else{
-                System.out.println("Item not recognised. ");
+                System.out.print("Item not recognised! ");
             }
         }
         String formattedAmount = NumberFormat.getCurrencyInstance().format(totalAmount);
-        System.out.println("The total for your items is " + formattedAmount);
+        System.out.println("Your shopping total is " + formattedAmount);
     }
 }
