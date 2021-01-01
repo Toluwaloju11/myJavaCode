@@ -13,7 +13,7 @@ Task      : Write a Java program to simulate an online store. The program should
 
 Method    : 1. I used HashMap to create a Key Value pair as (Key = itemName and Value = price) and then printed it out
             2. Using the While loop, I used the scanner object (NextLine) to get  input from the user and then used the containsKey to see availability of stock.
-            3. I then used if else statements to validate items not recognised and also one for the quit message
+            3. I then prompted the user to enter quantity using nextInt if the item was available. Then prompted the user to enter item again if item entered wasn't available
 */
 package UWL.GradedAssignments;
 import java.text.NumberFormat;
@@ -30,15 +30,17 @@ public class OnlineStore {
         product.put("jam", 2.21);
         product.put("bread", 1.13);
         product.put("mug", 2.41);
-        product.put("oil", 2.43);
+        product.put("milk", 2.43);
         product.put("eggs", 2.43);
         product.put("rice", 3.70);
-        System.out.println("The prices of the items are displayed below");
+        System.out.println("The prices of the items are displayed below. Please enter 'quit' when shopping is completed");
         product.forEach((key, value) -> System.out.println(key + " = " + "£" + value));
 
         while (true) {
-            if(numberOfProducts < 1)
+            if(numberOfProducts < 1) {
+                System.out.println();
                 System.out.print("Please enter an item from the list above: ");
+            }
             else
                 System.out.print("Please enter another item: or enter 'quit' to proceed to checkout: ");
             String productName = input.next().toLowerCase();
